@@ -1,0 +1,23 @@
+:host {
+    li {
+        list-style: none;
+    }
+}
+
+.expand-arrow {
+    i {
+    transition: transform 500ms;
+    }
+}
+.expand {
+    i {
+    transform: rotate(90deg);
+    }
+}
+
+.material-icons {
+    font-size: 14px;
+}
+a {
+    text-decoration: none;
+}

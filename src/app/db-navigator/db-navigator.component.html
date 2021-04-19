@@ -1,0 +1,16 @@
+<a href="javascript:void(0)"  (click)="decrement()" *ngIf="startIndex > 0">
+<i class="fas fa-chevron-up"></i>
+</a>
+<div class="container">
+   
+    <ul>
+    <li *ngFor="let node of displayedData">
+        <app-tree-node [node]="node" [getIconByNodeType]="getIconByNodeType"
+         (nodeClick)="nodeClick.emit($event)" ></app-tree-node>
+        
+    </li>
+</ul>
+
+</div>
+    <a href="javascript:void(0)" (click)="increment()" *ngIf="!isLastItemShown()">
+        <i class="fas fa-chevron-down"></i></a>

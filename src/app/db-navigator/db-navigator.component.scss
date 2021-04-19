@@ -1,0 +1,13 @@
+.container {
+    border-style: solid;
+    border-width: 1px;
+    max-height: 80vh;
+    overflow: scroll;
+    div {
+        width: 1em;
+    }
+}
+
+li {
+    list-style: none;
+}
