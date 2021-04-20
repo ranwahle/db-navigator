@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { DbDataService } from '../db-data.service';
 import { DbData } from '../model/db-data';
 import { Node } from '../model/node';
-import { debounce, first } from 'rxjs/operators';
+import { debounce } from 'rxjs/operators';
 import { fromEvent, Subscription, timer } from 'rxjs';
 
 @Component({
@@ -12,8 +11,9 @@ import { fromEvent, Subscription, timer } from 'rxjs';
 })
 export class DBNavigatorComponent implements OnInit, OnDestroy {
   
+  // tslint:disable-next-line:variable-name
   private _dbData: Node<DbData>[] = [];
-  get dbData() {
+  get dbData(): Node<DbData>[] {
     return this._dbData;
   }
 

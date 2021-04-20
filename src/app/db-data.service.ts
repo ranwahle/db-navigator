@@ -84,7 +84,15 @@ function getDataByType(type: string): Node<DbData>[] {
     children: [],
   };
   result.fill(node);
-
+  if (childType === 'schema') {
+    result.forEach(item => item.children = [{
+      value: {
+        name: 'tables',
+        type: 'schema',
+      },
+      children: []
+    }])
+  }
   return uniquify(result);
 }
 
