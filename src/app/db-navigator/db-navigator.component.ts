@@ -4,6 +4,9 @@ import { Node } from '../model/node';
 import { debounce } from 'rxjs/operators';
 import { fromEvent, Subscription, timer } from 'rxjs';
 
+/**
+ * Dictonary of FontAuesome icon classes, and node type
+ */
 const iconByType: any = {
   table: 'fa-table',
   connection: 'fa-server',
