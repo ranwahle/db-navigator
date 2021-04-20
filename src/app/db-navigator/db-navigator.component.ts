@@ -4,6 +4,13 @@ import { Node } from '../model/node';
 import { debounce } from 'rxjs/operators';
 import { fromEvent, Subscription, timer } from 'rxjs';
 
+const iconByType: any = {
+  table: 'fa-table',
+  connection: 'fa-server',
+  schema: 'fa-database',
+  column: 'fa-columns',
+};
+
 @Component({
   selector: 'app-db-navigator',
   templateUrl: './db-navigator.component.html',
@@ -59,11 +66,11 @@ export class DBNavigatorComponent implements OnInit, OnDestroy {
       (item) => item === this.dbData[this.dbData.length - 1]
     );
   }
-  decrement() {
+  decrement() : void {
     this.startIndex--;
     this.displayedData = this.getDisplayedData(this.dbData);
   }
-  increment() {
+  increment(): void {
     this.startIndex++;
     this.displayedData = this.getDisplayedData(this.dbData);
   }
@@ -96,14 +103,7 @@ export class DBNavigatorComponent implements OnInit, OnDestroy {
   }
 
   getIconByNodeType(node: Node<DbData>): string {
-    const iconByType: any = {
-      table: 'fa-table',
-      connection: 'fa-server',
-      schema: 'fa-database',
-      column: 'fa-columns',
-    };
-
-    return iconByType[node.value.type]; //'table_chart';
+       return iconByType[node.value.type]; //'table_chart';
   }
 
 

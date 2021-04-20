@@ -4,6 +4,14 @@ import { switchMap } from 'rxjs/operators';
 import { DbData, dbType } from './model/db-data';
 import { Node } from './model/node';
 
+
+const nodeNamesByType: {[type: string] : string[]} = {
+  'connection': ['postgress', 'mssql', 'mysql', 'sqlite', 'redis', 'mongodb', 'couchdb'],
+  'schema': ['sales', 'crm', 'employees', 'company'],
+  'table': ['items', 'people', 'groups', 'operational', 'system'],
+  'column': ['id', 'name', 'orderid', 'customer', 'email', 'burthday','created']
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -62,7 +70,7 @@ const childrenType: { [key: string]: dbType } = {
 function uniquify(items: Node<DbData>[]): Node<DbData>[] {
   const result = items.map((item) => ({
     ...item,
-    value: { ...item.value },
+    value: { ...item.value, name: getNameByType(item.value.type) },
     children: uniquify(item.children),
   }));
 
@@ -74,7 +82,7 @@ function getDataByType(type: string): Node<DbData>[] {
   if (!childType) {
     return [];
   }
-  const result: Node<DbData>[] = creatEmptyArrayWithRandomLength();
+  const initialArray: Node<DbData>[] = creatEmptyArrayWithRandomLength();
   const node: Node<DbData> = {
     value: {
       name: 'products',
@@ -83,7 +91,10 @@ function getDataByType(type: string): Node<DbData>[] {
     isLeaf: !childrenType[childType],
     children: [],
   };
-  result.fill(node);
+  initialArray.fill(node);
+
+  const result = uniquify(initialArray);
+
   if (childType === 'schema') {
     result.forEach(item => item.children = [{
       value: {
@@ -93,13 +104,25 @@ function getDataByType(type: string): Node<DbData>[] {
       children: []
     }])
   }
-  return uniquify(result);
+  return result;
 }
 
-function creatEmptyArrayWithRandomLength() {
+function creatEmptyArrayWithRandomLength(): any[] {
   const length = Math.round(Math.random() * 100);
 
   const result: Node<DbData>[] = [];
   result.length = length;
   return result;
 }
+function getNameByType(type: string): any {
+  const randomNumber = Math.round(Math.random() * 10);
+
+  const possibleNames = nodeNamesByType[type];
+
+  if (!possibleNames) {
+    console.error(`No possible names found for ${type}`);
+  }
+
+  return possibleNames[randomNumber % possibleNames.length];
+}
+
